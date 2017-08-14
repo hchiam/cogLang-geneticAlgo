@@ -1,11 +1,62 @@
 from collections import Counter
 
-scorersFile = 'best-scorers.txt'
-scorers = []
-with open(scorersFile,'r') as f:
-    for line in f:
-        # get just the words
-        scorers.append(line.split(',')[1].replace(' \'',''))
+def countCollisions(entries):
+    collisions = [k for k,v in Counter(entries).items() if v>1]
+    num_collisions = len(collisions)
+    print('word collisions:' + str(num_collisions) + '\nsuch as:\n' + str(collisions[:15])) # only show first few
+    return num_collisions
 
-collisions = [k for k,v in Counter(scorers).items() if v>1]
-print(len(collisions),'word collisions:\n',collisions)
+def countCollisionsInFile(filename,cv=False,cvc=False):
+    entries = []
+    with open(filename,'r') as f:
+        for line in f:
+            # get just the output words
+            entry = line.split(',')[0].replace(' \'','')
+            if cv:
+                entry = justTwoInitSylls_CV(entry)
+            elif cvc:
+                entry = justTwoInitSylls_CVC(entry)
+            entries.append(entry)
+    return countCollisions(entries)
+
+def countCollisionsInList(entries):
+    return countCollisions(entries)
+
+def justTwoInitSylls_CVC(word):
+    beforeThisIndex = 0
+    afterThisIndex = 0
+    for vowel1 in word:
+        if vowel1 in 'aeiou':
+            afterThisIndex = word.index(vowel1)
+            break
+    for vowel2 in word[afterThisIndex+1:]:
+        if vowel2 in 'aeiou':
+            beforeThisIndex = word[afterThisIndex+1:].index(vowel2)+1 + afterThisIndex+1
+            break
+    if beforeThisIndex!=0:
+        word = word[:beforeThisIndex+1]
+    return word
+
+def justTwoInitSylls_CV(word):
+    beforeThisIndex = 0
+    afterThisIndex = 0
+    for vowel1 in word:
+        if vowel1 in 'aeiou':
+            afterThisIndex = word.index(vowel1)
+            break
+    for vowel2 in word[afterThisIndex+1:]:
+        if vowel2 in 'aeiou':
+            beforeThisIndex = word[afterThisIndex+1:].index(vowel2)+1 + afterThisIndex+1
+            break
+    if beforeThisIndex!=0:
+        word = word[:beforeThisIndex]
+    return word
+
+if __name__ == '__main__': # if running this .py file directly
+    fileName = 'output.txt'
+    print('\n--- whole words: ---')
+    countCollisionsInFile(fileName)
+    print('\n--- cv: 1st 2 syllables: ---')
+    countCollisionsInFile(fileName,cv=True)
+    print('\n--- cvc: 1st 2 syllables: ---')
+    countCollisionsInFile(fileName,cvc=True)
