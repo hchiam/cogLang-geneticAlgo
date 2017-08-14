@@ -136,6 +136,25 @@ def generateNewIndividual():
     return outputInstructions
 
 
+def justTwoInitSylls_CVC(word):
+    beforeThisIndex = 0
+    afterThisIndex = 0
+    for vowel1 in word:
+        if vowel1 in 'aeiou':
+            afterThisIndex = word.index(vowel1)
+            break
+    for vowel2 in word[afterThisIndex+1:]:
+        if vowel2 in 'aeiou':
+            beforeThisIndex = word[afterThisIndex+1:].index(vowel2)+1 + afterThisIndex+1
+            # if second syllable has two vowels, then ignore that final vowel to preserve two vowels/syllables per word
+            if beforeThisIndex < len(word) and word[beforeThisIndex] in 'aeiou':
+                beforeThisIndex -= 1
+            break
+    if beforeThisIndex!=0:
+        word = word[:beforeThisIndex+1]
+    return word
+
+
 def constructWord(sourceWords, instructions):
     newWord = []
     i = 0
@@ -149,7 +168,7 @@ def constructWord(sourceWords, instructions):
             wordIndices[lang] += 1
         else: # instruction = lang 0,1,2,3,4
             lang = instruction
-            sourceWord = sourceWords[lang]
+            sourceWord = justTwoInitSylls_CVC(sourceWords[lang]) # only use letters from first 1 "syllables"
             i = wordIndices[lang]
             if i < len(sourceWord):
                 newWord.append(sourceWord[i])
@@ -215,22 +234,22 @@ def createWord(inputLineEntry):
     global countNew
     global scoreImprovements
     global creatingFromScratch
-    
+
     printDebug('\n...Running...')
     count += 1
     print(count)
-    
+
     # data = '+,long,tcan,largo,lamba,towil,dlini,' # tcanlartowdlam
     # data = '0,use,yun,usa,istemal,istemal,potrebi,' # yunsastempot
     data = inputLineEntry
     srcWords = getSourceWords(data)
     engWord = data.split(',')[1]
-    
+
     population = []
     scoreHistory = []
     scoreHistory2 = []
     wordHistory = []
-    
+
     # initialize population
     for i in range(popSize):
         instructions = generateNewIndividual()
@@ -239,7 +258,7 @@ def createWord(inputLineEntry):
         score = evaluate(entry)
         individual = [score, entry, instructions]
         population.append(individual)
-    
+
     # randomize whether initialization includes previous best-scorer in this session's population
     # (later will still compare to it anyways to check for improved score)
     cointoss = randint(0,1)
@@ -263,30 +282,30 @@ def createWord(inputLineEntry):
                     prevBest = [prevBestScore,prevBestEntry,prevBestInstruction]
                     # include preexisting best-scorer saved externally
                     population.append(prevBest)
-    
+
     # starting "from scratch"? allow more generations before comparing with best scorer
     adjustForFromScratch = 1
     if creatingFromScratch:
         adjustForFromScratch = 2
-    
+
     # train
     for i in range(numGenerations * adjustForFromScratch):
         # sort by score
         sortByScore(population)
         # printOnSepLines(population)
-        
+
         # update score history after sorting by score
         updateScoreHistory()
-        
+
         # update word history after sorting by score
         if i%epochMilestone == 0:
             updateWordHistory()
-        
+
         # remove lower scorers
         halfOfPop = popSize//2
         for i in range(halfOfPop):
             population.pop()
-        
+
         # add new random individuals to population
         halfOfHalf = halfOfPop//2
         for i in range(halfOfHalf):
@@ -296,7 +315,7 @@ def createWord(inputLineEntry):
             score = evaluate(entry)
             individual = [score, entry, instructions]
             population.append(individual)
-        
+
         # remove duplicate individuals
         mySet = []
         for indiv in population:
@@ -304,7 +323,7 @@ def createWord(inputLineEntry):
                 mySet.append(indiv)
         duplicatesToReplace = len(population) - len(mySet)
         population = list(mySet)
-        
+
         # add variations of existing individuals in population
         restOfPop = halfOfPop - halfOfHalf + duplicatesToReplace
         for i in range(restOfPop):
@@ -339,23 +358,23 @@ def createWord(inputLineEntry):
             score = evaluate(entry)
             individual = [score, entry, instructions]
             population.append(individual)
-    
+
     # sort by score
     sortByScore(population)
     printDebug('\nFINAL CANDIDATES:')
     printOnSepLines(population)
-    
+
     # get the best so far
     bestSoFar = getBestAlgo()
     scoreBestSoFar, entryBestSoFar, instructionsBestSoFar = bestSoFar
     printDebug('\nBEST SO FAR:')
     printDebug(bestSoFar)
-    
+
     printDebug('\nORIGINALLY:')
     original = 'yunsastempot,use,yun,usa,istemal,istemal,potrebi,'
     # original = 'tcanlartowdlam,long,tcan,largo,lamba,towil,dlini,'
     printDebug(evaluate(original), original)
-    
+
     printDebug('\nIF USE BEST SO FAR ON DIFFERENT INPUT:')
     data = '+,long,tcan,largo,lamba,towil,dlini,' # can use this to check still outputs same newWord
     # data = '0,use,yun,usa,istemal,istemal,potrebi,'
@@ -366,15 +385,15 @@ def createWord(inputLineEntry):
     score = evaluate(entry)
     individual = [score, entry, instructionsBestSoFar]
     printDebug(individual)
-    
+
     original = 'tcanlartowdlam,long,tcan,largo,lamba,towil,dlini,'
     printDebug('vs')
     printDebug(evaluate(original), original)
-    
+
     # show word history
     printDebug('\nBEST SCORERS AT EVERY '+str(epochMilestone)+' GENERATIONS:')
     printDebug(wordHistory)
-    
+
     # save best scorer externally
     scorersFile = 'best-scorers.txt'
     scorers = []
@@ -389,13 +408,13 @@ def createWord(inputLineEntry):
         bestSoFar_id = getEntryIdentifier(bestSoFar)
         bestSoFar_scr = getEntryScore(bestSoFar)
         bestSoFar_word = entryBestSoFar.split(',')[0].replace('\'','')
-        
+
         all_prevScorer_ids = []
         for scorer in scorers:
             all_prevScorer_ids.append(getEntryIdentifier(scorer))
-        
+
         newScorers = [] # reset
-        
+
         if bestSoFar_id not in all_prevScorer_ids:
             # retain previous scorers
             for scorer in scorers:
@@ -432,9 +451,9 @@ def createWord(inputLineEntry):
             for scorer in newScorers:
                 f.write(str(scorer)+'\n')
             f.close()
-    
+
     # TODO train over multiple examples
-    
+
     return bestSoFar_word
 
 if __name__ == '__main__': # run the following if running this .py file directly:
