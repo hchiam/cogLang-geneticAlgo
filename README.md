@@ -12,18 +12,26 @@ https://github.com/hchiam/cognateLanguage2
 
 To run an example:
 
-    python geneticAlgo_just1.py
+```
+python geneticAlgo_just1.py
+```
 
 To run on all the data in data.txt:
 
-    python geneticAlgo.py
+```
+python geneticAlgo.py
+```
 
 --> This outputs to output.txt and best-scorers.txt
 
 You can compare scores by running this:
 
-  python evaluator_old.py output.txt
+```
+python evaluator_old.py output.txt
+```
 
 or this:
 
-  python evaluator_old.py cognateLanguage_output_shortlist_old.txt
+```
+python evaluator_old.py deterministic_output.txt
+```
