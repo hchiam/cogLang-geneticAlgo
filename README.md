@@ -12,7 +12,7 @@ https://github.com/hchiam/cognateLanguage2
 
 To run an example:
 
-    python geneticAlgo-just1.py
+    python geneticAlgo_just1.py
 
 To run on all the data in data.txt:
 
