@@ -168,7 +168,7 @@ def constructWord(sourceWords, instructions):
             wordIndices[lang] += 1
         else: # instruction = lang 0,1,2,3,4
             lang = instruction
-            sourceWord = justTwoInitSylls_CVC(sourceWords[lang]) # only use letters from first 1 "syllables"
+            sourceWord = justTwoInitSylls_CVC(sourceWords[lang]) # only use letters from first 2 "syllables"
             i = wordIndices[lang]
             if i < len(sourceWord):
                 newWord.append(sourceWord[i])
