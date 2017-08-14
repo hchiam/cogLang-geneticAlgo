@@ -49,7 +49,7 @@ if debugOn:
 # functions:
 #------------------------
 
-def evaluateScore_LettersFromEachSource(word,originalWords):
+def encourage_LettersFromEachSource(word,originalWords):
     score = 0
     consonantsAlreadyUsed = []
     for letter in word:
@@ -77,7 +77,7 @@ def respellWithAllophones(word):
     return word
 
 
-def evaluateScore_UsesFirstSyllablesAllophones(newWord, originalWords):
+def encourage_UsesFirstSyllablesAllophones(newWord, originalWords):
     score = 0
     srcSyllables = [getFirstSyllable(srcWord) for srcWord in originalWords if srcWord!=None]
     for syllable in srcSyllables:
@@ -86,7 +86,7 @@ def evaluateScore_UsesFirstSyllablesAllophones(newWord, originalWords):
     return score
 
 
-def penalizeConsonantClusters(word):
+def penalize_ConsonantClusters(word):
     score = 0
     consonantClusterLength = 0
     for letter in word:
@@ -101,7 +101,7 @@ def penalizeConsonantClusters(word):
     return score
 
 
-def penalizeLength(newWord):
+def penalize_Length(newWord):
     return -len(newWord)
 
 
@@ -110,11 +110,11 @@ def evaluate(line):
     originalWords = line.split(',')[2:]
     score = 0
     # encourage using letters from ALL src words, but avoid repeating letters like in "mmmmmmommmmmmm":
-    score += evaluateScore_LettersFromEachSource(newWord, originalWords)
-    score += evaluateScore_UsesFirstSyllablesAllophones(newWord,originalWords)
+    score += encourage_LettersFromEachSource(newWord, originalWords)
+    score += encourage_UsesFirstSyllablesAllophones(newWord,originalWords)
     # avoid consonant clusters like in "htkyowaz" or "kdyspgunwa"
-    score += penalizeConsonantClusters(newWord)
-    score += penalizeLength(newWord)
+    score += penalize_ConsonantClusters(newWord)
+    score += penalize_Length(newWord)
     return score
 
 
