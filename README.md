@@ -19,3 +19,11 @@ To run on all the data in data.txt:
     python geneticAlgo.py
 
 --> This outputs to output.txt and best-scorers.txt
+
+You can compare scores by running this:
+
+  python evaluator_old.py output.txt
+
+or this:
+
+  python evaluator_old.py cognateLanguage_output_shortlist_old.txt
