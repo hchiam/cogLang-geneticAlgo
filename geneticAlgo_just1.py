@@ -49,18 +49,6 @@ if debugOn:
 # functions:
 #------------------------
 
-def encourage_LettersFromEachSource(word,originalWords):
-    score = 0
-    consonantsAlreadyUsed = []
-    for letter in word:
-        # avoid using the same letter again anywhere in the same word:
-        if letter not in consonantsAlreadyUsed:
-            consonantsAlreadyUsed.append(letter)
-            # encourage using words with letters found in all source words:
-            for srcWord in originalWords:
-                score += 1 if letter in srcWord else 0
-    return score
-
 
 def getFirstSyllable(string):
     syll = re.search(r'[^aeiou]+[aeiou][^aeiou]?',string)
@@ -75,6 +63,19 @@ def respellWithAllophones(word):
             if char in allo:
                 word = word.replace(char,allophones[allo])
     return word
+
+
+def encourage_LettersFromEachSource(word,originalWords):
+    score = 0
+    consonantsAlreadyUsed = []
+    for letter in word:
+        # avoid using the same letter again anywhere in the same word:
+        if letter not in consonantsAlreadyUsed:
+            consonantsAlreadyUsed.append(letter)
+            # encourage using words with letters found in all source words:
+            for srcWord in originalWords:
+                score += 1 if letter in srcWord else 0
+    return score
 
 
 def encourage_UsesFirstSyllablesAllophones(newWord, originalWords):
