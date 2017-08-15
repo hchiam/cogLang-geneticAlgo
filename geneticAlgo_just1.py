@@ -404,38 +404,41 @@ def createWord(inputLineEntry):
 
     # sort by score
     sortByScore(population)
-    printDebug('\nFINAL CANDIDATES:')
-    printOnSepLines(population)
 
     # get the best so far
     bestSoFar = getBestAlgo()
     scoreBestSoFar, entryBestSoFar, instructionsBestSoFar = bestSoFar
-    printDebug('\nBEST SO FAR:')
-    printDebug(bestSoFar)
 
-    printDebug('\nORIGINALLY:')
-    original = 'yunsastempot,use,yun,usa,istemal,istemal,potrebi,'
-    # original = 'tcanlartowdlam,long,tcan,largo,lamba,towil,dlini,'
-    printDebug(evaluate(original), original)
+    if debugOn: # suppress debug output, especially if other python file is calling this function
+        printDebug('\nFINAL CANDIDATES:')
+        printOnSepLines(population)
 
-    printDebug('\nIF USE BEST SO FAR ON DIFFERENT INPUT:')
-    data = '+,long,tcan,largo,lamba,towil,dlini,' # can use this to check still outputs same newWord
-    # data = '0,use,yun,usa,istemal,istemal,potrebi,'
-    srcWords = getSourceWords(data)
-    engWord = data.split(',')[1]
-    newWord = constructWord(srcWords, instructionsBestSoFar)
-    entry = newWord + ',' + engWord + ',' + ','.join(srcWords) + ',' # should have 7 commas
-    score = evaluate(entry)
-    individual = [score, entry, instructionsBestSoFar]
-    printDebug(individual)
+        printDebug('\nBEST SO FAR:')
+        printDebug(bestSoFar)
 
-    original = 'tcanlartowdlam,long,tcan,largo,lamba,towil,dlini,'
-    printDebug('vs')
-    printDebug(evaluate(original), original)
+        printDebug('\nORIGINALLY:')
+        original = 'yunsastempot,use,yun,usa,istemal,istemal,potrebi,'
+        # original = 'tcanlartowdlam,long,tcan,largo,lamba,towil,dlini,'
+        printDebug(evaluate(original), original)
 
-    # show word history
-    printDebug('\nBEST SCORERS AT EVERY '+str(epochMilestone)+' GENERATIONS:')
-    printDebug(wordHistory)
+        printDebug('\nIF USE BEST SO FAR ON DIFFERENT INPUT:')
+        data = '+,long,tcan,largo,lamba,towil,dlini,' # can use this to check still outputs same newWord
+        # data = '0,use,yun,usa,istemal,istemal,potrebi,'
+        srcWords = getSourceWords(data)
+        engWord = data.split(',')[1]
+        newWord = constructWord(srcWords, instructionsBestSoFar)
+        entry = newWord + ',' + engWord + ',' + ','.join(srcWords) + ',' # should have 7 commas
+        score = evaluate(entry)
+        individual = [score, entry, instructionsBestSoFar]
+        printDebug(individual)
+
+        original = 'tcanlartowdlam,long,tcan,largo,lamba,towil,dlini,'
+        printDebug('vs')
+        printDebug(evaluate(original), original)
+
+        # show word history
+        printDebug('\nBEST SCORERS AT EVERY '+str(epochMilestone)+' GENERATIONS:')
+        printDebug(wordHistory)
 
     # save best scorer externally
     scorersFile = 'best-scorers.txt'
