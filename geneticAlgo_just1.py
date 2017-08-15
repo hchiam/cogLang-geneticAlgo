@@ -78,7 +78,7 @@ def encourage_LettersFromEachSource(word,originalWords):
     return score
 
 
-def encourage_UsesFirstSyllablesAllophones(newWord, originalWords):
+def encourage_UsesFirstSyllablesAllophones(word, originalWords):
     score = 0
     srcSyllables = [getFirstSyllable(srcWord) for srcWord in originalWords if srcWord!=None]
     for syllable in srcSyllables:
@@ -102,7 +102,7 @@ def penalize_ConsonantClusters(word):
     return score
 
 
-def penalize_Length(newWord):
+def penalize_Length(word):
     return -len(newWord)
 
 
