@@ -67,11 +67,11 @@ def respellWithAllophones(word):
 
 def encourage_LettersFromEachSource(word,originalWords):
     score = 0
-    consonantsAlreadyUsed = []
+    lettersAlreadyUsed = []
     for letter in word:
         # avoid using the same letter again anywhere in the same word:
-        if letter not in consonantsAlreadyUsed:
-            consonantsAlreadyUsed.append(letter)
+        if letter not in lettersAlreadyUsed:
+            lettersAlreadyUsed.append(letter)
             # encourage using words with letters found in all source words:
             for srcWord in originalWords:
                 score += 1 if letter in srcWord else 0
