@@ -327,7 +327,7 @@ def createWord(inputLineEntry):
         # add variations of existing individuals in population
         restOfPop = halfOfPop - halfOfHalf + duplicatesToReplace
         for i in range(restOfPop):
-            index = randint(0,len(population)-1)
+            index = randint(0,len(population)-1) # 0 to len(population)-1 includes top scorer
             instructions_toMutate = list(population[index][2]) # hacky: use list() to make an actual copy, not a reference
             if len(instructions_toMutate) == 0:
                 instructions_toMutate = ''
