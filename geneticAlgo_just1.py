@@ -80,9 +80,10 @@ def encourage_LettersFromEachSource(word,originalWords):
 
 def encourage_UsesFirstSyllablesAllophones(word, originalWords):
     score = 0
-    srcSyllables = [getFirstSyllable(srcWord) for srcWord in originalWords if srcWord!=None]
-    for syllable in srcSyllables:
-        if respellWithAllophones(syllable) in respellWithAllophones(word):
+    word_allo = respellWithAllophones(word)
+    srcSyllables_allo = [respellWithAllophones(getFirstSyllable(srcWord)) for srcWord in originalWords if srcWord!=None]
+    for syllable in srcSyllables_allo:
+        if syllable in word_allo:
             score += len(syllable)
     return score
 
