@@ -88,6 +88,46 @@ def encourage_UsesFirstSyllablesAllophones(word, originalWords):
     return score
 
 
+def encourage_First3LetterAllosInOrderAndWithin1Space(word, originalWords):
+    score = 0
+    newWord = respellWithAllophones(word)
+
+    first3letterAllos = [respellWithAllophones(srcWord[:3]) for srcWord in originalWords]
+
+    # test each 3-letter initial (allophone) letters
+    for test in first3letterAllos:
+        # set up regex based on number of letters available in test
+        # (account for source words shorter than 3 letters)
+        if len(test) == 3:
+            regex = test[0] + r'(\w?)' + test[1] + r'(\w?)' + test[2]
+        elif len(test) == 2:
+            regex = test[0] + r'(\w?)' + test[1]
+        elif len(test) == 1:
+            regex = test[0]
+        else:
+            break # 0 characters, word translation does not exist in that source language
+
+        matches = re.search(regex,newWord)
+        if matches:
+
+            # score up by number of letters allo word
+            # (account for source words shorter than 3 letters)
+            score += len(test) # print(word,test,score)
+
+            # score down by number of interspersed letters between
+            # (account for source words shorter than 3 letters)
+            try:
+                score -= len(matches.group(1))
+                try:
+                    score -= len(matches.group(2))
+                except Exception as e:
+                    pass
+            except Exception as e:
+                pass
+
+    return score
+
+
 def penalize_ConsonantClusters(word):
     score = 0
     consonantClusterLength = 0
@@ -114,6 +154,7 @@ def evaluate(line):
     # encourage using letters from ALL src words, but avoid repeating letters like in "mmmmmmommmmmmm":
     score += encourage_LettersFromEachSource(newWord, originalWords)
     score += encourage_UsesFirstSyllablesAllophones(newWord, originalWords)
+    score += encourage_First3LetterAllosInOrderAndWithin1Space(newWord, originalWords)
     # avoid consonant clusters like in "htkyowaz" or "kdyspgunwa"
     score += penalize_ConsonantClusters(newWord)
     score += penalize_Length(newWord)
@@ -465,6 +506,7 @@ if __name__ == '__main__': # run the following if running this .py file directly
     # wordCreated = createWord(inputLineEntry)
     print('\nCREATED WORD:')
     print(wordCreated)
+    # print(wordCreated + ' ' + str(evaluate(wordCreated + inputLineEntry[1:])))
     if debugOn:
         title = 'Score History'
         # plot score over generations:
