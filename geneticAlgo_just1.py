@@ -82,7 +82,7 @@ def encourage_UsesFirstSyllablesAllophones(word, originalWords):
     score = 0
     srcSyllables = [getFirstSyllable(srcWord) for srcWord in originalWords if srcWord!=None]
     for syllable in srcSyllables:
-        if respellWithAllophones(syllable) in respellWithAllophones(newWord):
+        if respellWithAllophones(syllable) in respellWithAllophones(word):
             score += len(syllable)
     return score
 
@@ -103,7 +103,7 @@ def penalize_ConsonantClusters(word):
 
 
 def penalize_Length(word):
-    return -len(newWord)
+    return -len(word)
 
 
 def evaluate(line):
