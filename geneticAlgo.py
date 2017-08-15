@@ -58,5 +58,7 @@ for line in data:
         with open(outputFilename,'a') as f2:
             f2.write(newWord + ',' + originalWords['Eng'] + ',' + originalWords['Chi'] + ',' + originalWords['Spa'] + ',' + originalWords['Hin'] + ',' + originalWords['Ara'] + ',' + originalWords['Rus'] + ',\n')
 
+    time.sleep(0.5) # give computer a quick rest to avoid overheating
+
 with open(outputFilename,'a') as f2:
     f2.write('____________________\n')
