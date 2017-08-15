@@ -113,7 +113,7 @@ def evaluate(line):
     score = 0
     # encourage using letters from ALL src words, but avoid repeating letters like in "mmmmmmommmmmmm":
     score += encourage_LettersFromEachSource(newWord, originalWords)
-    score += encourage_UsesFirstSyllablesAllophones(newWord,originalWords)
+    score += encourage_UsesFirstSyllablesAllophones(newWord, originalWords)
     # avoid consonant clusters like in "htkyowaz" or "kdyspgunwa"
     score += penalize_ConsonantClusters(newWord)
     score += penalize_Length(newWord)
