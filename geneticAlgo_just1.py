@@ -302,6 +302,13 @@ def createWord(inputLineEntry):
         individual = [score, entry, instructions]
         population.append(individual)
 
+    # get best scorers so far into a list, in case we need to update it
+    scorersFile = 'best-scorers.txt'
+    scorers = []
+    creatingFromScratch = False
+    with open(scorersFile,'r') as f:
+        scorers = f.read().splitlines()
+
     # randomize whether initialization includes previous best-scorer in this session's population
     # (later will still compare to it anyways to check for improved score)
     cointoss = randint(0,1)
@@ -309,11 +316,6 @@ def createWord(inputLineEntry):
         creatingFromScratch = True
     elif cointoss == 1:
         # make use of preexisting best-scorer saved externally
-        scorersFile = 'best-scorers.txt'
-        scorers = []
-        creatingFromScratch = False
-        with open(scorersFile,'r') as f:
-            scorers = f.read().splitlines()
         if scorers != []:
             for scorer in scorers:
                 prevScorer_id = getEntryIdentifier(scorer)
@@ -441,10 +443,6 @@ def createWord(inputLineEntry):
         printDebug(wordHistory)
 
     # save best scorer externally
-    scorersFile = 'best-scorers.txt'
-    scorers = []
-    with open(scorersFile,'r') as f:
-        scorers = f.read().splitlines()
     if scorers == []:
         # just initialize file if nothing there
         with open(scorersFile,'w') as f:
