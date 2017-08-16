@@ -248,12 +248,13 @@ def updateWordHistory():
 
 
 def getEntryIdentifier(entry):
-    parts = str(entry).split(', ')
-    sourceWordsListStr = parts[1]
-    justSrcWords = sourceWordsListStr.split(',',1)[1]
-    removedFinalApostrophe = justSrcWords[:-1]
-    identifier = removedFinalApostrophe
-    return identifier
+    return str(entry).split(',')[2]
+    # parts = str(entry).split(', ')
+    # sourceWordsListStr = parts[1]
+    # justSrcWords = sourceWordsListStr.split(',',1)[1]
+    # removedFinalApostrophe = justSrcWords[:-1]
+    # identifier = removedFinalApostrophe
+    # return identifier
 
 
 def getEntryScore(entry):
@@ -302,12 +303,15 @@ def createWord(inputLineEntry):
         individual = [score, entry, instructions]
         population.append(individual)
 
-    # get best scorers so far into a list, in case we need to update it
+    # get best scorers so far into a dictionary, in case we need to update it
     scorersFile = 'best-scorers.txt'
-    scorers = []
+    scorers = {}
     creatingFromScratch = False
     with open(scorersFile,'r') as f:
-        scorers = f.read().splitlines()
+        for entry in f:
+            if entry != '\n': # ignore empty lines (some editors automatically add them)
+                keyEng = entry.replace('\n','').split(',')[2]
+                scorers[keyEng] = entry
 
     # randomize whether initialization includes previous best-scorer in this session's population
     # (later will still compare to it anyways to check for improved score)
@@ -317,16 +321,17 @@ def createWord(inputLineEntry):
     elif cointoss == 1:
         # make use of preexisting best-scorer saved externally
         if scorers != []:
-            for scorer in scorers:
-                prevScorer_id = getEntryIdentifier(scorer)
-                if prevScorer_id == getEntryIdentifier(population[0]):
-                    # prevBestScore = int(float(scorer.split(', ')[0].replace('[','')))
-                    prevBestEntry = scorer.split(', ')[1].replace('\'','')
-                    prevBestScore = evaluate(prevBestEntry)
-                    prevBestInstruction = ast.literal_eval(scorer.split(', ',2)[2][:-1]) # [:-1] to remove final ']'
-                    prevBest = [prevBestScore,prevBestEntry,prevBestInstruction]
-                    # include preexisting best-scorer saved externally
-                    population.append(prevBest)
+            generatedBestScorer = population[0]
+            bestScorerKey = getEntryIdentifier(generatedBestScorer)
+            if bestScorerKey in scorers:
+                scorer = scorers[bestScorerKey]
+                # prevBestScore = int(float(scorer.split(', ')[0].replace('[','')))
+                prevBestEntry = scorer.split(', ')[1].replace('\'','')
+                prevBestScore = evaluate(prevBestEntry)
+                prevBestInstruction = ast.literal_eval(scorer.replace('\n','').split(', ',2)[2][:-1]) # [:-1] to remove final ']'
+                prevBest = [prevBestScore,prevBestEntry,prevBestInstruction]
+                # include preexisting best-scorer saved externally
+                population.append(prevBest)
 
     # starting "from scratch"? allow more generations before comparing with best scorer
     adjustForFromScratch = 1
@@ -446,59 +451,42 @@ def createWord(inputLineEntry):
     if scorers == []:
         # just initialize file if nothing there
         with open(scorersFile,'w') as f:
-            f.write(str(bestSoFar)+'\n')
+            f.write(str(bestSoFar))
         bestSoFar_word = entryBestSoFar.split(',')[0].replace('\'','')
     else:
         bestSoFar_id = getEntryIdentifier(bestSoFar)
         bestSoFar_scr = getEntryScore(bestSoFar)
         bestSoFar_word = entryBestSoFar.split(',')[0].replace('\'','')
 
-        all_prevScorer_ids = []
-        for scorer in scorers:
-            all_prevScorer_ids.append(getEntryIdentifier(scorer))
-
-        newScorers = [] # reset
-
-        if bestSoFar_id not in all_prevScorer_ids:
-            # retain previous scorers
-            for scorer in scorers:
-                newScorers.append(scorer)
-            # will add if new entry
-            newScorers.append(bestSoFar)
+        if bestSoFar_id not in scorers:
+            # add new entry
+            scorers[bestSoFar_id] = bestSoFar
             countNew += 1
             print('NEW WORDS:',countNew)
         else:
-            # check each line
-            for scorer in scorers:
-                prevScorer_id = getEntryIdentifier(scorer)
-                if prevScorer_id == bestSoFar_id:
-                    prevScorer_scr = getEntryScore(scorer)
-                    prevScorer_word = scorer.split(',')[1].replace(' \'','')
-                    # include only better scorer
-                    if bestSoFar_scr > prevScorer_scr:
-                        newScorers.append(bestSoFar)
-                        print(prevScorer_word + ' -> ')
-                        print(bestSoFar)
-                        countNew += 1
-                        print('NEW WORDS:',countNew)
-                        scoreImprovements += bestSoFar_scr - prevScorer_scr
-                        print('SCORE IMPROVEMENT SUM:',scoreImprovements)
-                    else:
-                        newScorers.append(scorer)
-                        # replace with previously existing scorer as output word
-                        bestSoFar_word = prevScorer_word
-                else:
-                    if scorer not in newScorers:
-                        # otherwise make sure to include previously existing scorers
-                        newScorers.append(scorer)
+            # replace with better scorer out of previous or just generated one
+            scorer = scorers[bestSoFar_id]
+            prevScorer_scr = getEntryScore(scorer)
+            prevScorer_word = scorer.split(',')[1].replace(' \'','')
+            # include only better scorer
+            if bestSoFar_scr > prevScorer_scr:
+                scorers[bestSoFar_id] = bestSoFar
+                print(prevScorer_word + ' -> ')
+                print(bestSoFar)
+                countNew += 1
+                print('NEW WORDS:',countNew)
+                scoreImprovements += bestSoFar_scr - prevScorer_scr
+                print('SCORE IMPROVEMENT SUM:',scoreImprovements)
+            else: # prevScorer_scr > bestSoFar_scr
+                # will return, whether or not actually scored better than before
+                bestSoFar_word = prevScorer_word
         with open(scorersFile,'w') as f:
-            for scorer in newScorers:
-                f.write(str(scorer)+'\n')
+            for key in scorers:
+                scorer = scorers[key]
+                f.write(str(scorer))
             f.close()
 
-    # TODO train over multiple examples
-
-    return bestSoFar_word
+    return bestSoFar_word # whether or not actually scored better than before
 
 if __name__ == '__main__': # run the following if running this .py file directly:
     inputLineEntry = '0,use,yun,usa,istemal,istemal,potrebi,' # yunsastempot
