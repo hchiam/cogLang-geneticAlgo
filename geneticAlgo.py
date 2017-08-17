@@ -1,8 +1,10 @@
 from collections import OrderedDict
 import time
 import re
+import os
 
 import geneticAlgo_just1
+import sortByEng
 
 #------------------------
 # shared variables:
@@ -73,7 +75,7 @@ for line in data:
 
     time.sleep(0.5) # give computer a quick rest to avoid overheating
 
-# update file to track best scorers
+# update file to track best scorers:
 with open(scorersFileName,'w') as f:
     for key in scorers:
         scorer = scorers[key]
@@ -81,5 +83,9 @@ with open(scorersFileName,'w') as f:
             f.write(str(scorer).replace('\n','')+'\n')
     f.close()
 
+# mark out end of new run in output file:
 with open(outputFileName,'a') as f2:
     f2.write('____________________\n')
+
+# sort file:
+sortByEng.main(scorersFileName)
