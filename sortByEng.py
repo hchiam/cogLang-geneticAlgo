@@ -1,8 +1,6 @@
 import sys # so you can get terminal argument using print sys.argv[1]
 import collections # so you can do dictionary manipulations
 
-scorersFilename = sys.argv[1] # so in terminal: python sortByEng.py best-scorers.txt
-
 scorers = {}
 
 def readScorers(scorersFilename):
@@ -21,6 +19,11 @@ def writeScorers(scorersFilename):
             scorer = scorers[key]
             f.write(scorer)
 
-readScorers(scorersFilename)
-sortByEng()
-writeScorers(scorersFilename)
+def main(scorersFilename):
+    readScorers(scorersFilename)
+    sortByEng()
+    writeScorers(scorersFilename)
+
+if __name__ == '__main__':
+    scorersFilename = sys.argv[1] # so in terminal: python sortByEng.py best-scorers.txt
+    main(scorersFilename)
