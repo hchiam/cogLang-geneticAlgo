@@ -425,7 +425,7 @@
 [30, 'sordpaysan,sort,payci,ordena,suladjha,sanafa,sartirava,', [4, 1, '+', 1, '+', 1, 0, '+', 0, '+', 0, 3, '+', 3, '+', 3]]
 [27, 'sanizvok,sound,canin,sonido,avaz,sot,zvuk,', ['+', '+', 1, '+', 2, '+', 0, '+', 0, 4, '+', 4, '+', '+', 1, 4, '+', '+', 4, '+']]
 [31, 'hasup,soup,tan,sopa,sup,hasa,sup,', [3, '+', 3, 2, '+', 2, '+', 2, '+', 'x']]
-[18, 'fganesi,source,ganywen,fwente,srot,masdar,istotcnik,', [1, '+', '+', 0, '+', 0, '+', 0, '+', 1, 2, '+', 4]]
+[27, 'ganisrot,source,ganywen,fwente,srot,masdar,istotcnik,', [0, '+', 0, '+', 0, 4, 2, '+', 2, '+', 2, '+', 2, '+', 'x', 4, '+', 0, 2, 4, 3]]
 [29, 'ysurganandak,south,nan,sur,daksin,ganub,yuk,', ['+', 4, 1, '+', 1, '+', 1, '+', 3, '+', 0, '+', 0, 3, 0, 2, '+', 2, '+', 2]]
 [50, 'cebaspini,spanish,cibanya,espanyol,spenic,isbaniya,ispanski,', [0, '+', '+', 1, 0, '+', 0, '+', 2, '+', 2, '+', '+', '+', 3, 0, 3, '+']]
 [28, 'hvesaptip,special,tabye,espesyal,vicec,has,asobi,', [3, 2, '+', 1, '+', 1, '+', 4, 1, 0, 2, 1, 'x', 3, 3, 1, '+', 1, 4, '+', 2]]
