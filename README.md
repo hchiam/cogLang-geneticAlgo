@@ -8,6 +8,8 @@ https://github.com/hchiam/cognateLanguage
 
 https://github.com/hchiam/cognateLanguage2
 
+https://github.com/hchiam/coglang-translator
+
 ## Genetic Algorithm:
 
 To run an example:
