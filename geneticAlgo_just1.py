@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, sample
 from operator import itemgetter
 import ast # to convert string of list to actual list
 import collections
@@ -165,8 +165,35 @@ def getSourceWords(data):
     return data.split(',')[2:][:-1]
 
 
+def random_insert_seq(lst, seq): # O(n+m)
+    # https://stackoverflow.com/questions/2475518/python-how-to-append-elements-to-a-list-randomly
+    insert_locations = sample(xrange(len(lst) + len(seq)), len(seq))
+    inserts = dict(zip(insert_locations, seq))
+    input = iter(lst)
+    lst[:] = [inserts[pos] if pos in inserts else next(input)
+        for pos in xrange(len(lst) + len(seq))]
+
+
+def trackSourceLanguagesUsed(instruction, sourcesUsed):
+    # tracking source language used: 0b11111 if used all
+    langID = 0b00000
+    if instruction == 0:
+        return 0b10000 # 10000
+    elif instruction == 1:
+        return 0b01000 # 01000
+    elif instruction == 2:
+        return 0b00100 # 00100
+    elif instruction == 3:
+        return 0b00010 # 00010
+    elif instruction == 4:
+        return 0b00001 # 00001
+    # finally, combine:
+    return langID | sourcesUsed
+
+
 def generateNewIndividual():
     outputInstructions = []
+    sourcesUsed = 0b00000 # tracks source languages used: 0b11111 if used all
     # possibleInstructions = [0,1,2,3,4,'+','+','x'] # make '+' more likely (heuristically seems good)
     for i in range(25):
         index = randint(0,len(possibleInstructions)-1)
@@ -176,6 +203,10 @@ def generateNewIndividual():
                 break
         else:
             outputInstructions.append(instruction)
+        sourcesUsed = trackSourceLanguagesUsed(instruction, sourcesUsed)
+    # insert other source languages if missing
+    if sourcesUsed != 0b11111:
+        random_insert_seq(outputInstructions,[0,1,2,3,4])
     return outputInstructions
 
 
