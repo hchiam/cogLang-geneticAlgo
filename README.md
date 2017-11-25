@@ -37,3 +37,9 @@ or this:
 ```
 python evaluator_old.py deterministic_output.txt
 ```
+
+or even to compare with a previous run with an older genetic algorithm:
+
+```
+python evaluator_old.py previous_output.txt
+```
