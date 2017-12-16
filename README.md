@@ -33,13 +33,11 @@ To run an example on just one word:
 python geneticAlgo_just1_v2.py
 ```
 
-To run on all the data in data.txt:
+To run on all the data in data.txt: (This outputs to output.txt and best-scorers.txt)
 
 ```
 python geneticAlgo.py
 ```
-
---> This outputs to output.txt and best-scorers.txt
 
 You can compare scores by running this:
 
