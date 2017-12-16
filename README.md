@@ -56,3 +56,8 @@ or even to compare with a previous run with an older genetic algorithm:
 ```
 python evaluator_old.py previous_output.txt
 ```
+
+## Lessons Learned:
+
+* Find more efficient data structures and algorithms = faster and less risk of over-heating.
+* Better-defined fitness evaluators and better generators = better results / more sensible results.
