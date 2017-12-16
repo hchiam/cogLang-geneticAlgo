@@ -3,7 +3,7 @@ import time
 import re
 import os
 
-import geneticAlgo_just1
+import geneticAlgo_just1_v2 as geneticAlgo_just1 # use version 2, but make the code here look the same
 import sortByEng
 
 #------------------------
