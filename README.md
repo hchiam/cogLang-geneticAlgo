@@ -11,7 +11,7 @@ Generate words:
 and
 * while having words as short as possible.
 
-See the code in `geneticAlgo_just1_v2` for details on how the above goals are quantified and combined for overall "fitness" scores.
+See the code in [geneticAlgo_just1_v2.py](https://github.com/hchiam/cogLang-geneticAlgo/blob/master/geneticAlgo_just1_v2.py) for details on how the above goals are quantified and combined for overall "fitness" scores.
 
 ## Background / Other Related Repos:
 
@@ -26,7 +26,7 @@ https://github.com/hchiam/coglang-translator
 To run an example:
 
 ```
-python geneticAlgo_just1.py
+python geneticAlgo_just1_v2.py
 ```
 
 To run on all the data in data.txt:
