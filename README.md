@@ -59,5 +59,19 @@ python evaluator_old.py previous_output.txt
 
 ## Lessons Learned:
 
-* Find more efficient data structures and algorithms = faster and less risk of over-heating.
+* Find more efficient data structures and algorithms = faster and less risk of over-heating. Example: hashtable.
 * Better-defined fitness evaluators and better generators = better results / more sensible results.
+
+## Stats:
+
+### Scores Using evaluator_old.py:
+
+13185.0 = geneticAlgo_just1_v2.py (first try)
+11067.9 = geneticAlgo_just1.py (first try)
+9822.4 = deterministic
+
+So:
+
+v2 = 1.2 times better than v1 (not to mention faster)
+v1 = 1.1 times better than deterministic
+v2 = 1.3 times better than deterministic
