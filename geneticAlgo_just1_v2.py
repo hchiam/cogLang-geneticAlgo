@@ -1,7 +1,7 @@
 '''
 Difference with the older geneticAlgo_just1.py:
 I noticed that best-scorers.txt tended to have a lot of things like [1, '+', '+', '+', 2, '+', '+', ...]
-I removed the '+' instruction, so repeated numbers like 1,1 mean consecutive letters, NOT the same letter from the same source word.
+I removed the '+' instruction, and have repeated numbers like [1, 1] in the instructions get interpreted to mean consecutive letters, NOT the same letter from the same source word.
 We know we don't want to repeat the same letter from the same source word anyways.
 This should make the word-generation process more efficient.
 '''
