@@ -7,10 +7,15 @@ Use a genetic algorithm to generate words for a "Cognate Language" (a.k.a. "CogL
 ## Goals at a Glance:
 
 Generate words:
+
 * with as much "cognacy" as possible with the source words from all 5 source languages (like recognizability -- an emphasis on initial syllables in words should help),
+
 * while allowing for "allophones" (acceptable alternative spellings for flexibility),
+
 * while having the generated words relatively easy to pronounce,
+
 and
+
 * while having words as short as possible.
 
 See the code in [geneticAlgo_just1_v2.py](https://github.com/hchiam/cogLang-geneticAlgo/blob/master/geneticAlgo_just1_v2.py) for details on how the above goals are quantified and combined for overall "fitness" scores.
@@ -60,6 +65,7 @@ python evaluator_old.py previous_output.txt
 ## Lessons Learned:
 
 * Find more efficient data structures and algorithms = faster and less risk of over-heating. Example: hashtable.
+
 * Better-defined fitness evaluators and better generators = better results / more sensible results.
 
 ## Stats:
@@ -67,11 +73,15 @@ python evaluator_old.py previous_output.txt
 ### Scores Using evaluator_old.py:
 
 13185.0 = geneticAlgo_just1_v2.py (first try)
+
 11067.9 = geneticAlgo_just1.py (first try)
+
 9822.4 = deterministic
 
 So:
 
 v2 = 1.2 times better than v1 (not to mention faster)
+
 v1 = 1.1 times better than deterministic
+
 v2 = 1.3 times better than deterministic
