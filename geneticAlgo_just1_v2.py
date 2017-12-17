@@ -414,7 +414,7 @@ def createWord(inputLineEntry, scorers, scorersFile):
             else:
                 for mutation in range(3):
                     # mutate instructions (replace/add/delete) at index_toMutate:
-                    decide1replace2add3delete = randint(1,3)
+                    decide1replace2add3delete = randint(1,4) # 1 to 4 inclusive. 4 = do nothing (so can have less than 3 total mutations)
                     index_toMutate = randint(0,len(instructions_toMutate)) # not -1 so that can add at end
                     atEnd = index_toMutate == len(instructions_toMutate)
                     if decide1replace2add3delete == 1 and instructions_toMutate:
