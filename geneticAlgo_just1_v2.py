@@ -434,6 +434,7 @@ def createWord(inputLineEntry, scorers, scorersFile):
                         del instructions_toMutate[index_toMutate]
                     else:
                         # 4 = do nothing (enables having a variable number of mutations to apply)
+                        pass
             instructions = instructions_toMutate
             newWord = constructWord(srcWords, instructions)
             entry = newWord + ',' + engWord + ',' + ','.join(srcWords) + ',' # should have 7 commas
