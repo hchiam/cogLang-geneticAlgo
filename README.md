@@ -72,16 +72,12 @@ python evaluator_old.py previous_output.txt
 
 ### Scores Using evaluator_old.py:
 
-13185.0 = geneticAlgo_just1_v2.py (first try)
+According to the deterministic method's own rough evaluator:
 
-11067.9 = geneticAlgo_just1.py (first try)
+12980.3 = geneticAlgo_just1_v2.py
 
-9822.4 = deterministic
+11601.3 = deterministically/manually
 
 So:
 
-v2 = 1.2 times better than v1 (not to mention faster)
-
-v1 = 1.1 times better than deterministic
-
-v2 = 1.3 times better than deterministic
+Using the genetic algorithm is **1.12 times** as good as doing it deterministically/manually, or **12 %** better.
