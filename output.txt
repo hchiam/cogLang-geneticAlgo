@@ -629,10 +629,7 @@ swerhalak,though,sweran,aunke,halaki,raganan,hatya,
 pazdejran,let,ran,deja,de,samaha,pazvoli,
 smirenanut,humble,tcyenbey,umilde,namra,mutawadi,smireni,
 mutawvisarog,arrogant,aw,arogante,abhimani,mutakabir,visakamerni,
-____________________
-Wed Dec 20 21:43:00 2017
 wasmedjon,middle,djon,medio,madhya,wasat,sredni,
 gometr,metre,gontca,metro,mitar,metr,metr,
 rdanbidjal,early,dzaw,temprano,djaldi,badri,rani,
 tarpozni,late,wan,tarde,der,ahir,pozni,
-____________________
