@@ -75,11 +75,11 @@ python evaluator_old.py previous_output.txt
 According to the deterministic method's own rough evaluator:
 
 output.txt
-13357.3 = rough overall score
+13233.7 = rough overall score
 
 deterministic_output.txt
-11709.0 = rough overall score
+11948.2 = rough overall score
 
 So:
 
-Using the genetic algorithm is **1.14 times** as good as doing it deterministically/manually, or **14 %** better.
+Using the genetic algorithm is **1.107 times** as good as doing it deterministically/manually, or about **11 %** better, even if you use the deterministic method's own rough evaluator.
