@@ -641,13 +641,6 @@ cyavnasfali,down,cya,abaho,nitce,asfal,vnis,
 altogawvis,high,gaw,alto,utca,ali,visoki,
 watnisdibaho,low,di,baho,nitca,wati,niski,
 yawmutcab,key,yawca,yave,tcabi,mutfah,klyutc,
-sqaftelzam,lock,swo,seradura,tala,qafla,zamok,
-halmesmic,mix,hunha,meskla,micran,halata,smica,
+tsalzamoswe,lock,swo,seradura,tala,qafla,zamok,
+halasmichun,mix,hunha,meskla,micran,halata,smica,
 purcotcinaq,pure,tcun,puro,cudh,naqi,tcisti,
-____________________
-Tue Jan 16 21:43:11 2018
-yawmutcab,key,yawca,yave,tcabi,mutfah,klyutc,
-sqaftelzam,lock,swo,seradura,tala,qafla,zamok,
-halmesmic,mix,hunha,meskla,micran,halata,smica,
-purcotcinaq,pure,tcun,puro,cudh,naqi,tcisti,
-____________________

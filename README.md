@@ -75,7 +75,7 @@ python evaluator_old.py previous_output.txt
 According to the deterministic method's own rough evaluator:
 
 output.txt
-13313.1 = rough overall score
+13308.9 = rough overall score
 
 deterministic_output.txt
 12035.3 = rough overall score
