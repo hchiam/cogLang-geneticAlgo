@@ -562,10 +562,6 @@ gamastotfwensrot,source,ganywen,fwente,srot,masdar,istotcnik,t
 tabvispesobhas,special,tabye,espesyal,vicec,has,asobi,d
 puntodyenuq,dot,dyen,punto,bindu,nuqta,totcka,t
 hayizaltodabtak,still,hay,todavia,abtak,zala,yico,d
-castahokanbi,am,ca,esta,ho,kana,bi,a
-castahokanbi,is,ca,esta,ho,kana,bi,a
-castahokanbi,are,ca,esta,ho,kana,bi,a
-dzwosekarfaldel,does,dzwo,ase,kar,fal,dela,a
 harbukcalidzam,literal,dzamyen,literal,akcarik,harfi,bukvalni,d
 biyfiglakmagbraz,figurative,biyu,figurativo,lakcanik,magazi,obrazna,d
 katmuzubalas,garbage,lasa,basura,katcra,zubala,musar,t
@@ -644,3 +640,7 @@ canfuripar,up,can,ariba,upar,fuq,vyerh,c
 vnitcyasfalbah,down,cya,abaho,nitce,asfal,vnis,c
 altcovisgaw,high,gaw,alto,utca,ali,visoki,d
 nwitsibah,low,di,baho,nitca,wati,niski,d
+klyawvtcabmut,key,yawca,yave,tcabi,mutfah,klyutc,t
+swertalqafzam,lock,swo,seradura,tala,qafla,zamok,t
+smeshunhal,mix,hunha,meskla,micran,halata,smica,a
+tcudnaqpur,pure,tcun,puro,cudh,naqi,tcisti,d
