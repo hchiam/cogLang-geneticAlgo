@@ -1,7 +1,5 @@
 # CogLang - Genetic Algorithm
 
-[![HitCount](http://hits.dwyl.io/hchiam/cogLang-geneticAlgo.svg)](http://hits.dwyl.io/hchiam/cogLang-geneticAlgo)
-
 (Skip [here](https://github.com/hchiam/cogLang-geneticAlgo#try-it-out) for how to try it out.)
 
 Use a genetic algorithm to generate words for a "Cognate Language" (a.k.a. "CogLang" for short). The "CogLang" is a language with special properties (details [here](https://github.com/hchiam/cognateLanguage)). The genetic algorithm puts the words in output.txt. Results seem to resemble those generated manually or deterministically (deterministic_output.txt comes from https://github.com/hchiam/cognateLanguage).
